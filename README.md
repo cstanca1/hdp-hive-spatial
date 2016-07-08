@@ -38,27 +38,28 @@ create temporary function st_numpoints as 'com.esri.hadoop.hive.ST_NumPoints';
 
 6. Execute the various spatial queries included in spatial-geometry-demo-queries.txt file also listed below:
 
-//counts by geometry type -- assumes that other than ST_POINT values are possible
+Counts by geometry type -- assumes that other than ST_POINT values are possible
 `
 select st_geometrytype(st_geomfromtext(shape)), count(shape)
 from demo_shape_point
 group by st_geometrytype(st_geomfromtext(shape));
 `
-//counts by geometry type -- assumes that other than ST_LINESTRING values are possible
+
+Counts by geometry type -- assumes that other than ST_LINESTRING values are possible
 `
 select st_geometrytype(st_geomfromtext(shape)), count(shape)
 from demo_shape_linestring
 group by st_geometrytype(st_geomfromtext(shape));
 `
 
-//counts by geometry type -- assumes that other than ST_POLYGON values are possible
+Counts by geometry type -- assumes that other than ST_POLYGON values are possible
 `
 select st_geometrytype(st_geomfromtext(shape)), count(shape)
 from demo_shape_polygon
 group by st_geometrytype(st_geomfromtext(shape));
 `
 
-// X and Y coordinates of the point
+X and Y coordinates of the point
 `
 select st_x(st_point(shape)) AS X, st_y(st_point(shape)) AS Y 
 from demo_shape_point 
@@ -66,7 +67,7 @@ where st_geometrytype(st_geomfromtext(shape)) = "ST_POINT"
 limit 1;
 `
 
-// extract geometry from text shape
+Extract geometry from text shape
 `
 select st_geomfromtext(shape) 
 from demo_shape_point 
@@ -74,14 +75,15 @@ where st_geometrytype(st_geomfromtext(shape)) = "ST_POINT"
 limit 1;
 `
 
-// geometry type
+Geometry type
 `
 select st_geometrytype(st_geomfromtext(shape)) 
 from demo_shape_point 
 where st_geometrytype(st_geomfromtext(shape)) = "ST_POINT"
 limit 1;
 `
-// point geometry as a binary - implicitly
+
+Point geometry as a binary - implicitly
 `
 select st_point(shape) 
 from demo_shape_point 
@@ -89,7 +91,7 @@ where st_geometrytype(st_geomfromtext(shape)) = "ST_POINT"
 limit 1;
 `
 
-// point geometry as a binary - explicitly
+Point geometry as a binary - explicitly
 `
 select st_asbinary(st_geomfromtext(shape)) 
 from demo_shape_point 
@@ -97,7 +99,7 @@ where st_geometrytype(st_geomfromtext(shape)) = "ST_POINT"
 limit 1;
 `
 
-// point geometry as Json
+Point geometry as Json
 `
 select st_asjson(st_geomfromtext(shape)) 
 from demo_shape_point 
@@ -105,7 +107,7 @@ where st_geometrytype(st_geomfromtext(shape)) = "ST_POINT"
 limit 1;
 `
 
-// point geometry as a text
+Point geometry as a text
 `
 select st_astext(st_point(shape)) 
 from demo_shape_point 
@@ -113,7 +115,7 @@ where st_geometrytype(st_geomfromtext(shape)) = "ST_POINT"
 limit 1;
 `
 
-// SRID for a point
+SRID for a point
 `
 select distinct st_srid(st_point(shape))
 from demo_shape_point
@@ -121,7 +123,7 @@ where st_geometrytype(st_geomfromtext(shape)) = "ST_POINT"
 limit 1;
 `
 
-// line as text
+Line as text
 `
 select st_astext(st_linestring(shape))
 from demo_shape_linestring
@@ -129,7 +131,7 @@ where st_geometrytype(st_geomfromtext(shape)) = "ST_LINESTRING"
 limit 1;
 `
 
-// n point of a line
+n point of a line
 `
 select st_astext(st_point(st_astext(st_pointn(st_linestring(shape), 2))))
 from demo_shape_linestring
@@ -137,7 +139,7 @@ where st_geometrytype(st_geomfromtext(shape)) = "ST_LINESTRING"
 limit 1;
 `
 
-// start and end points of a line
+Start and end points of a line
 `
 select st_astext(st_startpoint(st_linestring(shape))) AS StartPoint, 
        st_astext(st_endpoint(st_linestring(shape))) AS EndPoint
@@ -146,7 +148,7 @@ where st_geometrytype(st_geomfromtext(shape)) = "ST_LINESTRING"
 limit 1;
 `
 
-// number of points in a polygon
+Number of points in a polygon
 `
 select shape, st_numpoints(st_geomfromtext(shape)) as NumPoints
 from demo_shape_polygon
@@ -154,7 +156,7 @@ where st_geometrytype(st_geomfromtext(shape)) = "ST_POLYGON"
 limit 1;
 `
 
-// lines intersection - usually you would have two tables - this is just an example with a table with one row
+Lines intersection - usually you would have two tables - this is just an example with a table with one row
 `
 select st_intersects(a.s1, b.s2)
 from 
@@ -165,7 +167,7 @@ from
 limit 1;
 `
 
-// lines intersection - usually you would have two tables - this is just an example with a table with one row
+Lines intersection - usually you would have two tables - this is just an example with a table with one row
 `
 select st_intersects(a.s1, b.s2)
 from 
@@ -175,3 +177,7 @@ from
       from demo_shape_linestring limit 1) b
 limit 1;
 `
+
+## Final Note
+For more UDFs go to: https://github.com/Esri/spatial-framework-for-hadoop/wiki/UDF-Documentation
+
