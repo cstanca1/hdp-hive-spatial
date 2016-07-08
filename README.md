@@ -2,17 +2,17 @@
 Hive Spatial Queries with ESRI Libraries
 
 ## Steps
-1. Clone this repo locally:
+1) Clone this repo locally:
 
 ```
-git clone https://github.com/cstanca1/hdp-hive-spatial.git' 
+git clone https://github.com/cstanca1/hdp-hive-spatial.git
 ```
 
-2. Extract the 3 jars files from esri.zip and copy them to hdfs. Grant ownership on these jar files to hive:hdfs.
+2) Extract the 3 jars files from esri.zip and copy them to hdfs. Grant ownership on these jar files to hive:hdfs.
 
-3. Connect to your hive database using your preferred CLI and execute the content of spatial-geometry-demo-ddl-dml.txt to create tables and populate with sample data.
+3) Connect to your hive database using your preferred CLI and execute the content of spatial-geometry-demo-ddl-dml.txt to create tables and populate with sample data.
 
-4. Before executing any query, add ESRI jar libraries to your session execution path, for the session or globally.
+4) Before executing any query, add ESRI jar libraries to your session execution path, for the session or globally.
 
 
 ```
@@ -23,7 +23,7 @@ add jar hdfs://YourHDFSClientNode:8020/esri/spatial-sdk-hive-1.1.1-SNAPSHOT.jar;
 add jar hdfs://YourHDFSClientNode:8020/esri/spatial-sdk-json-1.1.1-SNAPSHOT.jar;
 ```
 
-5. Define temporary functions for better SQL-like experience.
+5) Define temporary functions for better SQL-like experience.
 
 ```
 create temporary function st_geomfromtext as 'com.esri.hadoop.hive.ST_GeomFromText';
@@ -57,7 +57,7 @@ create temporary function st_endpoint as 'com.esri.hadoop.hive.ST_EndPoint';
 create temporary function st_numpoints as 'com.esri.hadoop.hive.ST_NumPoints';
 ```
 
-6. Execute the various spatial queries included in spatial-geometry-demo-queries.txt file also listed below:
+6) Execute the various spatial queries included in spatial-geometry-demo-queries.txt file also listed below:
 
 Counts by geometry type -- assumes that other than ST_POINT values are possible:
 
